@@ -3,6 +3,8 @@ package hilos.vista;
 import hilos.clase.auto;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class autoVista extends JFrame{
     private JTextField txtMarca;
@@ -20,8 +22,6 @@ public class autoVista extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
-
-        auto auto = new auto();
 
         // Marca
         lbMarca = new JLabel("Marca:");
@@ -55,20 +55,31 @@ public class autoVista extends JFrame{
         procesar.setBounds(80, 150, 130, 30);
         add(procesar);
 
-        procesar.addActionListener(e -> {
-            String marca = txtMarca.getText();
-            String modelo = txtModelo.getText();
-            String precio = txtPrecio.getText();
-            auto.setMarca(marca);
-            auto.setModelo(modelo);
-            auto.setPrecio(precio);
+        procesar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String marca = txtMarca.getText();
+                    String modelo = txtModelo.getText();
+                    int precio = Integer.parseInt(txtPrecio.getText());
 
-            datosVista.getWindows();
+                    auto auto1 = new auto();
+                    auto1.setMarca(marca);
+                    auto1.setModelo(modelo);
+                    if(precio > 0) {
+                        auto1.setPrecio(precio);
+                        datosVista datos = new datosVista(auto1);
+                        datos.setVisible(true);
+                        dispose();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Ingrese un precio válido.");
+                    }
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Ingrese un precio válido.");
+                }
+            }
         });
-    }
-
-    public static void main(String[] args) {
-        autoVista vista = new autoVista();
-        vista.setVisible(true);
     }
 }

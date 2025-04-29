@@ -1,5 +1,7 @@
 package hilos.test;
 import hilos.clase.*;
+import hilos.vista.autoVista;
+
 public class test {
     public static void main(String[] args) {
 //        persona p = new persona();
@@ -20,6 +22,8 @@ public class test {
         b.start();
         c.start();
         d.start();
-        e.start();
+        //e.start();
+        proceso_F f  = new proceso_F();
+        f.start();
     }
 }

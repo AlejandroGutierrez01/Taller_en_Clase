@@ -1,5 +1,11 @@
 package hilos.clase;
 
-public class proceso_F {
+import hilos.vista.autoVista;
 
+public class proceso_F extends Thread {
+    @Override
+    public void run() {
+        autoVista autoVista = new autoVista();
+        autoVista.setVisible(true);
+    }
 }
